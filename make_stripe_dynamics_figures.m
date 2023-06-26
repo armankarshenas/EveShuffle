@@ -2,10 +2,13 @@
 % clear
 close all
 clear
+
+addpath(genpath('./lib'))
+
 SavePath = pwd;
-DataPath = "~/Downloads/eve2_recon_analyses/"; 
+DataPath = '~/Downloads/eve2_recon_analyses/'; 
 % make output paths for data and figures
-FigurePath = pwd+"/figure";
+FigurePath = [pwd '/figure'];
 mkdir(FigurePath)
 
 %% %%%%%%%%%%%%%%%%%%%% Make offset plot and HM plots %%%%%%%%%%%%%%%%%%%%
@@ -42,7 +45,7 @@ saveas(offset_fig,"fluo_offset.png")
 %% %%%%%%%%%%%%%%%%%%% Make mRNA heatmaps %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 close all
-mRNA_path = [FigurePath "mRNA_heatmaps" filesep];
+mRNA_path = [FigurePath 'mRNA_heatmaps' filesep];
 mkdir(mRNA_path)
 max_mRNA = ceil(prctile(full_dynamics_array(:),99)/1e4)*1e4;
 
@@ -425,9 +428,9 @@ hold on
 for m = 1:length(projectNameCell)
     bar(m,full_mRNA_mean(m)/norm_factor,'FaceColor',cmap1(m,:),'FaceAlpha',0.4,'LineWidth',1.5)
 end
-errorbar(1:4,full_mRNA_mean/norm_factor,full_mRNA_ste/norm_factor,'.','Color','k') 
+errorbar(length(full_mRNA_mean),full_mRNA_mean/norm_factor,full_mRNA_ste/norm_factor,'.','Color','k') 
 
-xlim([0 5])    
+xlim([0 length(full_mRNA_mean)+1])    
 ylabel(['total mRNA at ' num2str(round(time_axis(t_index))) ' min (au)'])
 set(gca,'Fontsize',14);
 grid on
@@ -449,7 +452,7 @@ for m = 1:length(projectNameCell)
 end
 % errorbar(1:4,full_mRNA_mean/norm_factor,full_mRNA_ste/norm_factor,'.','Color','k') 
 
-xlim([0 5])    
+xlim([0 length(full_mRNA_mean)+1])   
 ylabel(['mRNA fold change (relative to NSv1)'])
 set(gca,'Fontsize',14);
 grid on
@@ -502,7 +505,7 @@ for i = 1:3
     % end
     % errorbar(1:4,full_mRNA_mean/norm_factor,full_mRNA_ste/norm_factor,'.','Color','k') 
 
-    xlim([0 5])    
+    xlim([0 length(full_mRNA_mean)+1])    
     ylabel(['mRNA at ' num2str(round(time_axis(t_index))) ' min (relative to NSv1)'])
     set(gca,'Fontsize',14);
     grid on
