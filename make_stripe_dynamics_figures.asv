@@ -46,7 +46,7 @@ saveas(offset_fig,"fluo_offset.png")
 
 close all 
 mRNA_path = [FigurePath 'mRNA_heatmaps' filesep];
-mkdir(mRNA_path)
+mkdir(mRNA _path)
 max_mRNA = ceil(prctile(full_dynamics_array(:),99)/1e4)*1e4;
 
 
